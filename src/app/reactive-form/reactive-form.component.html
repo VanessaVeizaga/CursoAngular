@@ -1,0 +1,59 @@
+
+
+<form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+  <div class="mb-3 row">
+      <label class="col-sm-2 col-form-label">Nombre</label>
+      <div class="col-sm-10">
+        <input formControlName="nombre" 
+               type="text" 
+               class="form-control" 
+               [ngClass]="{'is-invalid': formulario.controls['nombre'].invalid && formulario.controls['nombre'].touched}">
+        <div class="invalid-feedback">
+          <div [ngSwitch]="formulario.controls['nombre'].errors">
+            <ng-container *ngIf="formulario.controls['nombre'].errors?.['required']">
+                Este campo es requerido.
+            </ng-container>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">Email</label>
+    <div class="col-sm-10">
+      <input formControlName="email" 
+             type="email" 
+             class="form-control" 
+             [ngClass]="{'is-invalid': formulario.controls['email'].invalid && formulario.controls['email'].touched}"
+      >
+      <div class="invalid-feedback">
+        <div [ngSwitch]="formulario.controls['email'].errors">
+            <ng-container *ngIf="formulario.controls['email'].errors?.['required']">
+                Este campo es requerido
+            </ng-container>
+            <ng-container *ngIf="formulario.controls['email'].errors?.['email']">
+                El valor ingresado no es un e-mail válido.
+            </ng-container>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="mb-3 row">
+    <label for="exampleFormControlTextarea1" class="form-label">Mensaje</label>
+    <textarea  formControlName="mensaje" 
+               class="form-control"  
+               rows="3"
+               [ngClass]="{'is-invalid': formulario.controls['mensaje'].invalid && formulario.controls['mensaje'].touched}">
+    </textarea>
+    <div class="invalid-feedback">
+      <div [ngSwitch]="formulario.controls['mensaje'].errors">
+          <ng-container *ngIf="formulario.controls['mensaje'].errors?.['required']">
+              Este campo es requerido.
+          </ng-container>
+          <ng-container *ngIf="formulario.controls['mensaje'].errors?.['maxlength']">
+              El texto no debe superar los 255 caracteres.
+          </ng-container>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary" type="submit">Enviar</button>
